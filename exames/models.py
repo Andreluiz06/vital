@@ -1,5 +1,6 @@
-from datetime import timedelta, timezone
+from datetime import timedelta
 from django.db import models
+from django.utils import timezone  # Correção: Importar timezone do Django
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from secrets import token_urlsafe
@@ -74,6 +75,16 @@ class AcessoMedico(models.Model):
             self.token = token_urlsafe(6)
 
         super(AcessoMedico, self).save(*args, **kwargs)    
+
+    @property
+    def status(self):
+        # Correção: Usar timezone.now() do Django
+        hoje = timezone.now()
+        data_expiracao = self.data_criacao + timedelta(days=7)
+        
+        if hoje <= data_expiracao:
+            return "Ativo"
+        return "Expirado"
 
 #Método da acesso médico
     @property

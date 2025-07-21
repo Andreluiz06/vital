@@ -13,3 +13,32 @@ td, th{
     border: none;
     height: 70vh;
 }
+
+/*Css para acesso médico*/
+.btn-secundario {
+    text-decoration: none;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn-secundario:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.table-responsive {
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.linha-tabela {
+    transition: background-color 0.2s;
+}
+
+.linha-tabela:hover {
+    background-color: #f8f9fa;
+}

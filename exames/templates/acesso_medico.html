@@ -6,29 +6,47 @@
     <link href="{% static 'exames/css/gerenciar_pedidos.css' %}" rel="stylesheet">
 {% endblock 'head' %}
 
-
 {% block 'conteudo' %}
-    <br>
-    <br>
-    <div class="container">
+    <div class="container mt-4">
+        <h2 class="mb-4">Acesso Médico - Exames</h2>
 
-        
-        <table style="">
-
-            {% for pedido in pedidos %}
-                {% for exame in pedido.exames.all %}
-                    <tr class="linha-tabela">
-                        <td>{{exame.exame.nome}}</td>
-                        
-                        {% if exame.resultado %}
-                            <td><a style="text-decoration: none;" class="btn-secundario" href="{{exame.resultado.url}}">Ver exame</a></td>
-                        {% else %}
-                            <td>Em análise</td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-            {% endfor %}           
-           
-        </table>
+        {% if pedidos %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome do Exame</th>
+                            <th>Status/Ação</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pedido in pedidos %}
+                            {% for exame in pedido.exames.all %}
+                                <tr class="linha-tabela">
+                                    <td>{{exame.exame.nome}}</td>
+                                    <td>
+                                        {% if exame.resultado %}
+                                            <a href="{{exame.resultado.url}}" 
+                                               class="btn btn-secundario"
+                                               target="_blank">
+                                                Ver exame
+                                            </a>
+                                        {% else %}
+                                            <span class="badge bg-warning">Em análise</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{exame.data|date:"d/m/Y"}}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                Nenhum exame disponível para visualização.
+            </div>
+        {% endif %}
     </div>
 {% endblock 'conteudo' %}
